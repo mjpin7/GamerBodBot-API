@@ -8,7 +8,7 @@ class UserModel(db.Model):
 
     def __init__(self, username, password):
         self.username = username
-        self.password = hashpw(password.encode('utf-8'), gensalt())
+        self.password = '\'{}\''.format(hashpw(password.encode('utf-8'), gensalt()))
 
     def json(self):
         return {
