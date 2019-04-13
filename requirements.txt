@@ -3,4 +3,3 @@ Flask-JWT-Extended
 Flask-SQLAlchemy
 Flask-RESTful
 bcrypt
-uwsgi
