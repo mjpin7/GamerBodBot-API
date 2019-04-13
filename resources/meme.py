@@ -14,5 +14,5 @@ class Meme(Resource):
     def get(self):
         rand_num = randint(1, 429)
         response = make_response("https://github.com/mjpin7/GamerBodBot-API/tree/master/files/pics{}.jpg".format(rand_num), 200)
-        response.headers.extend({'Content-Type': 'image/jpeg'})
+        response.headers.extend({'Content-Type': 'image/jpg'})
         return response
