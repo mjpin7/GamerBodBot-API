@@ -51,7 +51,7 @@ class UserLogin(Resource):
         user = UserModel.find_by_username(data['username'])
 
         # check password (what "authenticate" method used to do)
-        if user and safe_str_cmp(hashpw(data['password'].encode('utf-8'), user.password.encode('utf-8')), user.password.encode('utf-8')):
+        if user and safe_str_cmp(hashpw(data['password'].encode('utf-8'), user.password), user.password):
             access_token = create_access_token(identity=user.id, fresh=True)
             refresh_token = create_refresh_token(user.id)
 
