@@ -1,1 +1,1 @@
-web: python app.py
+web: wsgi wsgi.ini

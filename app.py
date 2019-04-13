@@ -18,11 +18,6 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = os.environ.get('SECRET_KEY')
 api = Api(app)
 
-# Create tables on first req
-@app.before_first_request
-def create_tables():
-    db.create_all()
-
 jwt = JWTManager(app)
 
 ##
