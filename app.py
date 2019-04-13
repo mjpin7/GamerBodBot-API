@@ -68,7 +68,7 @@ def invalid_token_callback():
 api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
 api.add_resource(TokenRefresher, '/refresh')
-api.add_resource(TokenRefresher, '/refresh')
+api.add_resource(Meme, '/meme')
 
 
 if __name__ == '__main__':
