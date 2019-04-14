@@ -53,7 +53,7 @@ class UserLogin(Resource):
 
         # check password (what "authenticate" method used to do)
         if user and safe_str_cmp(hashpw(data['password'].encode('utf-8'), user.password), user.password):
-            if data['username'] == os.environ.get('ADMIN_UN'):
+            if safe_str_cmp(data['username'], os.environ.get('ADMIN_UN')):
                 access_token = create_access_token(identity=user.id, fresh=True, expires_delta=False)
                 refresh_token = create_refresh_token(user.id)
             else:
