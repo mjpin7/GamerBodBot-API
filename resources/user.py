@@ -1,3 +1,4 @@
+import os
 from flask_restful import Resource, reqparse
 from models.user import UserModel
 from werkzeug.security import safe_str_cmp
@@ -52,9 +53,13 @@ class UserLogin(Resource):
 
         # check password (what "authenticate" method used to do)
         if user and safe_str_cmp(hashpw(data['password'].encode('utf-8'), user.password), user.password):
-            access_token = create_access_token(identity=user.id, fresh=True)
-            refresh_token = create_refresh_token(user.id)
-
+            if data['username'] == os.environ.get('ADMIN_UN'):
+                access_token = create_access_token(identity=user.id, fresh=True, expires_delta=False)
+                refresh_token = create_refresh_token(user.id)
+            else:
+                access_token = create_access_token(identity=user.id, fresh=True)
+                refresh_token = create_refresh_token(user.id)
+            
             return {
                 'access_token': access_token,
                 'refresh_token': refresh_token
