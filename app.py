@@ -5,6 +5,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager
 from resources.user import UserLogin, UserRegister, TokenRefresher
 from resources.meme import Meme
+from resources.backlog import Backlog
 
 ##
 #
@@ -69,6 +70,7 @@ api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
 api.add_resource(TokenRefresher, '/refresh')
 api.add_resource(Meme, '/meme')
+api.add_resource(Backlog, '/backlog/<int:id>')
 
 
 if __name__ == '__main__':
