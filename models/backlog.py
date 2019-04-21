@@ -1,7 +1,7 @@
 from db import db
 
 class BacklogItemModel(db.Model):
-    user_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.LargeBinary, primary_key=True)
     game = db.Column(db.String(80))
     status = db.Column(db.String(20))
 
