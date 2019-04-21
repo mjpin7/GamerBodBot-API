@@ -33,7 +33,7 @@ class Backlog(Resource):
         item = BacklogItemModel(**data)
         item.save_to_db()
 
-        return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(_game, data['status'], _id)}
+        return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(data['game'], data['status'], _id)}
     
     @jwt_required
     def get(self, _id):
