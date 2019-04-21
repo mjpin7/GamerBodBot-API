@@ -30,7 +30,7 @@ class Backlog(Resource):
         if BacklogItemModel.find_by_game(user_id, data['game']):
             return {'message': 'User {} already has game "{}" in their backlog'.format(user_id, data['game'])}
         
-        item = BacklogItemModel(**data)
+        item = BacklogItemModel(user_id, **data)
         item.save_to_db()
 
         return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(data['game'], data['status'], user_id)}
