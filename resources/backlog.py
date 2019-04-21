@@ -24,35 +24,35 @@ _backlog_parser.add_argument('status',
 
 class Backlog(Resource):
     @jwt_required
-    def post(self, _id):
+    def post(self, user_id):
         data = _backlog_parser.parse_args()
 
-        if BacklogItemModel.find_by_game(_id, data['game']):
-            return {'message': 'User {} already has game "{}" in their backlog'.format(_id, data['game'])}
+        if BacklogItemModel.find_by_game(user_id, data['game']):
+            return {'message': 'User {} already has game "{}" in their backlog'.format(user_id, data['game'])}
         
         item = BacklogItemModel(**data)
         item.save_to_db()
 
-        return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(data['game'], data['status'], _id)}
+        return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(data['game'], data['status'], user_id)}
     
     @jwt_required
-    def get(self, _id):
+    def get(self, user_id):
         data = _backlog_parser.parse_args()
-        item = BacklogItemModel.find_by_game(_id, data['game'])
+        item = BacklogItemModel.find_by_game(user_id, data['game'])
 
         if item:
             return item.json()
 
-        return {'message': 'Game {} was not found in user {}\'s backlog'.format(data['game'], _id)}
+        return {'message': 'Game {} was not found in user {}\'s backlog'.format(data['game'], user_id)}
     
     @jwt_required
-    def put(self, _id):
+    def put(self, user_id):
         data = _backlog_parser.parse_args()
 
-        item = BacklogItemModel.find_by_game(_id, data['game'])
+        item = BacklogItemModel.find_by_game(user_id, data['game'])
 
         if item is None:
-            item - BacklogItemModel(_id, **data)
+            item - BacklogItemModel(user_id, **data)
         else:
             item.status = data['status']
 
