@@ -52,7 +52,7 @@ class Backlog(Resource):
         item = BacklogItemModel.find_by_game(_id, data['game'])
 
         if item is None:
-            item - BacklogItemModel(_id, data['game'], **data)
+            item - BacklogItemModel(_id, **data)
         else:
             item.status = data['status']
 

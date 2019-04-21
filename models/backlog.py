@@ -5,8 +5,8 @@ class BacklogItemModel(db.Model):
     game = db.Column(db.String(80))
     status = db.Column(db.String(20))
 
-    def __init__(self, _id, game, status):
-        self.user_id = _id
+    def __init__(self, user_id, game, status):
+        self.user_id = user_id
         self.game = game
         self.status = status
 
