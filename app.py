@@ -70,7 +70,7 @@ api.add_resource(UserRegister, '/register')
 api.add_resource(UserLogin, '/login')
 api.add_resource(TokenRefresher, '/refresh')
 api.add_resource(Meme, '/meme')
-api.add_resource(Backlog, '/backlog/<int:user_id>')
+api.add_resource(Backlog, '/backlog/<string:user_id>')
 
 
 if __name__ == '__main__':
