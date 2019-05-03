@@ -57,9 +57,9 @@ class Backlog(Resource):
         item.status = data['status']
 
         if data['status'] == "playing":
-            return {"message": "{} has started playing {}".format(user_id, data['game'])
+            return {"message": "{} has started playing {}".format(user_id, data['game'])}
         elif data['status'] == "finished":
-            return {"message": "{} has completed {}!".format(user_id, data['game'])
+            return {"message": "{} has completed {}!".format(user_id, data['game'])}
         
 
     @jwt_required
