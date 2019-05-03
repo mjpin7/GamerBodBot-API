@@ -55,6 +55,7 @@ class Backlog(Resource):
             return {'message': 'Backlog item {} does not exist. Can not change status'.format(data['game'])}
         
         item.status = data['status']
+        item.save_to_db()
 
         if data['status'] == "playing":
             return {"message": "{} has started playing {}".format(user_id, data['game'])}
