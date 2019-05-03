@@ -52,11 +52,15 @@ class Backlog(Resource):
         item = BacklogItemModel.find_by_game(user_id, data['game'])
 
         if item is None:
-            item - BacklogItemModel(user_id, **data)
+            return {'message': 'Backlog item {} does not exist. Can not mark completed'.format(data['game'])
         else:
             item.status = data['status']
 
         item.save_to_db()
 
         return item.json()
+
+    @jwt_required
+    def delete(self, user_id):
+        pass
 
