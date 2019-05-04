@@ -41,7 +41,8 @@ class Backlog(Resource):
         item = BacklogItemModel.find_by_game(user_id, data['game'])
 
         if item:
-            return {'message': item.json()}
+            json = item.json()
+            return {'message': "{} backlog item: {} status {}".format(json['user_id'], json['game'], json['status'])}
 
         return {'message': 'Game {} was not found in user {}\'s backlog'.format(data['game'], user_id)}
     
