@@ -66,5 +66,14 @@ class Backlog(Resource):
 
     @jwt_required
     def delete(self, user_id):
-        pass
+        data = _backlog_parser.parse_args()
+
+        item = BacklogItemModel.find_by_game(user_id, data['game'])
+
+        if item is None:
+            return {'message': 'Backlog item {} does not exist. Can not delete'.format(data['game'])}
+        
+        item.delete_from_db()
+
+        return {'message': 'Backlog item {} deleted'.format(data['game'])}
 
