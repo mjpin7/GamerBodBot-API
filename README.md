@@ -50,3 +50,7 @@ This repo contains source code for my REST-API to be used by my bot [GamerBotBot
     - Used once a token expires
 - /meme
     - Returns a random meme to the user
+- /backlog/<string: user_id>
+    - Adds (POST), updates (PUT), retrieve (GET) backlog items. A backlog item is currently limited to only games.
+    - Required info:
+     > ```{"game": "<game>", "status": "<status: unplayed, playing, finished>"}```
