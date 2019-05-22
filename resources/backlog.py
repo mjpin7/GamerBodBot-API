@@ -77,3 +77,12 @@ class Backlog(Resource):
 
         return {'message': 'Backlog item {} deleted'.format(data['game'])}
 
+class BacklogList(Resource):
+    def get(self, user_id):
+        items = BacklogItemModel.find_all_by_id(user_id)
+
+        if len(items) == 0:
+            return {'message': 'User {} has no items in their backlog'}
+        
+        return {'message': items}
+
