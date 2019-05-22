@@ -81,8 +81,14 @@ class BacklogList(Resource):
     def get(self, user_id):
         items = BacklogItemModel.find_all_by_id(user_id)
 
-        if len(items) == 0:
-            return {'message': 'User {} has no items in their backlog'}
+        if items:
+            msg = "\t{}'s Backlog:\n".format(user_id)
+            for item in items:
+                json = item.json()
+                msg += '{} status {}\n'.format(json['game'], json['status'])
+            return {'message': msg}
+
+        return {'message': 'User {} has no backlog items'.format(user_id)}
         
-        return {'message': items}
+        
 
