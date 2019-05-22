@@ -8,7 +8,7 @@ class BacklogItemModel(db.Model):
 
     def __init__(self, user_id, game, status):
         self.user_id = user_id
-        self.game = game
+        self.game = game.capitalize()
         self.status = status
 
     def json(self):
@@ -32,5 +32,5 @@ class BacklogItemModel(db.Model):
 
     @classmethod
     def find_by_game(cls, _id, _game):
-        return cls.query.filter_by(user_id=_id, game=_game).first()
+        return cls.query.filter_by(user_id=_id, game=_game.capitalize()).first()
     
