@@ -54,3 +54,5 @@ This repo contains source code for my REST-API to be used by my bot [GamerBotBot
     - Adds (POST), updates (PUT), retrieve (GET) backlog items. A backlog item is currently limited to only games.
     - Required info:
      > ```{"game": "<game>", "status": "<status: unplayed, playing, finished>"}```
+- /backloglist/<string: user_id>
+    - Returns the list of the users backlog
