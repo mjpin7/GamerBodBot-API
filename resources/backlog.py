@@ -45,7 +45,7 @@ class Backlog(Resource):
         if item:
             json = item.json()
             # Make request to game db api to get game information
-            resp = requests.get("https://api-v3.igdb.com/search/", data={"search": json['game'], "fields": ["name", "game.url", "game.summary", "game.rating"]}, headers={"user-key": os.environ.get('GAME_API_KEY')})
+            resp = requests.get("https://api-v3.igdb.com/search/?search={}&fields=name,game.url,game.summary,game.rating".format(json['game']), headers={"user-key": os.environ.get('GAME_API_KEY')})
             
             if resp.status_code == 200:
                 gameInfo = resp.json()
