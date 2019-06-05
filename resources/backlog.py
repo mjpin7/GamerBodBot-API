@@ -49,7 +49,7 @@ class Backlog(Resource):
             
             if resp.status_code == 200:
                 gameInfo = resp.json()
-                return {'message': "{} backlog item:\n```{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {}\n\nView More: {}```".format(json['user_id'], json['game'], json['status'], gameInfo['game']['summary'], gameInfo['game']['rating'], gameInfo['game']['url'])}
+                return {'message': "{} backlog item:\n```{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {}\n\nView More: {}```".format(json['user_id'], json['game'], json['status'], gameInfo[0]['game']['summary'], gameInfo[0]['game']['rating'], gameInfo[0]['game']['url'])}
             else:
                 return {'message': "{} backlog item:\n```{}\n\nStatus: {}```".format(json['user_id'], json['game'], json['status'])}
 
