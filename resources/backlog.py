@@ -110,7 +110,7 @@ class BacklogList(Resource):
         
         if flag:
             msg += "\n"
-                return {'message': msg}
+            return {'message': msg}
 
 
         return {'message': 'User {} has no backlog items'.format(user_id)}
