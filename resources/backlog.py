@@ -88,24 +88,27 @@ class BacklogList(Resource):
             flag = True
         
         if itemsFin:
+            msg += "Finished:\n"
             for item in itemsFin:
                 json = item.json()
-                msg += '{} status {}\n'.format(json['game'], json['status'])
+                msg += '{}\n'.format(json['game'].title())
             msg += "\n"
         
 
         if itemsPlay:
+            msg += "Playing:\n"
             for item in itemsPlay:
                 json = item.json()
-                msg += '{} status {}\n'.format(json['game'], json['status'])
+                msg += '{}\n'.format(json['game'].title())
             msg += "\n"
 
         
 
         if itemsPlay:
+            msg += "Unplayed:\n"
             for item in itemsUnpl:
                 json = item.json()
-                msg += '{} status {}\n'.format(json['game'], json['status'])
+                msg += '{}'.format(json['game'].title())
             msg += "\n"
         
         if flag:
