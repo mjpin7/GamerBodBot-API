@@ -109,7 +109,7 @@ class BacklogList(Resource):
             msg += "\n"
         
         if flag:
-            msg += "\n"
+            msg += "\n```"
             return {'message': msg}
 
 
