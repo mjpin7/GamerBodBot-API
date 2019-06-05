@@ -1,4 +1,6 @@
 import os
+import requests
+import json
 from flask_restful import Resource, reqparse
 from models.backlog import BacklogItemModel
 from werkzeug.security import safe_str_cmp
@@ -42,7 +44,17 @@ class Backlog(Resource):
 
         if item:
             json = item.json()
-            return {'message': "{} backlog item: {} status {}".format(json['user_id'], json['game'], json['status'])}
+            
+            # Make request to game db api to get game information
+            resp = requests.get("https://api-v3.igdb.com/search/", data={"search \"{}\"; fields name,game.url,game.summary,game.rating;".format(json['game'])}, headers={"user-key": os.environ.get('GAME_API_KEY')})
+            
+            if resp.status_code == 200:
+                gameInfo = resp.json()
+                return {'message': "{} backlog item:\n```{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {}\n\nView More: {}```".format(json['user_id'], json['game'], json['status'], gameInfo['game']['summary'], gameInfo['game']['rating'], gameInfo['game']['url'])}
+            else:
+                return {'message': "{} backlog item:\n```{}\n\nStatus: {}```".format(json['user_id'], json['game'], json['status'])}
+
+            
 
         return {'message': 'Game {} was not found in user {}\'s backlog'.format(data['game'], user_id)}
     
