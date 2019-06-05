@@ -5,3 +5,4 @@ Flask-RESTful
 bcrypt
 uwsgi
 psycopg2
+requests
