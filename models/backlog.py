@@ -33,4 +33,8 @@ class BacklogItemModel(db.Model):
     @classmethod
     def find_by_game(cls, _id, _game):
         return cls.query.filter_by(user_id=_id, game=_game.capitalize()).first()
+
+    @classmethod
+    def find_by_status(cls, _id, _status):
+        return cls.query.filter_by(user_id=_id, status=_status).all()
     

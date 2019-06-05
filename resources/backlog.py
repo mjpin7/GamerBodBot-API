@@ -79,14 +79,39 @@ class Backlog(Resource):
 
 class BacklogList(Resource):
     def get(self, user_id):
-        items = BacklogItemModel.find_all_by_id(user_id)
+        itemsFin = BacklogItemModel.find_by_status(user_id, "finished")
+        itemsPlay = BacklogItemModel.find_by_status(user_id, "playing")
+        itemsUnpl = BacklogItemModel.find_by_status(user_id, "unplayed")
 
-        if items:
-            msg = "\t{}'s Backlog:\n".format(user_id)
-            for item in items:
+        if itemsFin or itemsPlay or itemsUnpl:
+            msg = "\t{}'s Backlog:\n```".format(user_id)
+            flag = True
+        
+        if itemsFin:
+            for item in itemsFin:
                 json = item.json()
                 msg += '{} status {}\n'.format(json['game'], json['status'])
-            return {'message': msg}
+            msg += "\n"
+        
+
+        if itemsPlay:
+            for item in itemsPlay:
+                json = item.json()
+                msg += '{} status {}\n'.format(json['game'], json['status'])
+            msg += "\n"
+
+        
+
+        if itemsPlay:
+            for item in itemsUnpl:
+                json = item.json()
+                msg += '{} status {}\n'.format(json['game'], json['status'])
+            msg += "\n"
+        
+        if flag:
+            msg += "\n"
+                return {'message': msg}
+
 
         return {'message': 'User {} has no backlog items'.format(user_id)}
         
