@@ -50,13 +50,15 @@ class Backlog(Resource):
             if resp.status_code == 200:
                 gameInfo = resp.json()
 
-                # To make sure the api call returned results
-                if 'game' not in gameInfo[0]:
-                    num = 1
-                else:
+                if gameInfo:
+                    # To make sure the api call returned results
                     num = 0
+                    while 'game' not in gameinfo[num]:
+                        num += 1
 
-                return {'message': "{} backlog item:\n```\n{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {:.2f}\n```View More: {}".format(json['user_id'], json['game'], json['status'], gameInfo[num]['game']['summary'], float(gameInfo[num]['game']['rating']), gameInfo[num]['game']['url'])}
+                    return {'message': "{} backlog item:\n```\n{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {:.2f}\n```View More: {}".format(json['user_id'], json['game'], json['status'], gameInfo[num]['game']['summary'], float(gameInfo[num]['game']['rating']), gameInfo[num]['game']['url'])}
+                else:
+                    return {'message': "{} backlog item:\n```\n{}\n\nStatus: {}```".format(json['user_id'], json['game'], json['status'])}
             else:
                 return {'message': "{} backlog item:\n```\n{}\n\nStatus: {}```".format(json['user_id'], json['game'], json['status'])}
 
