@@ -106,6 +106,7 @@ class BacklogList(Resource):
 
         # If the user wants to see all of their backlog items
         if status_to_find == "all":
+            flag = False
             
             # This is to format the output nicely, it goes through each of the status lists individually
             if itemsFin or itemsPlay or itemsUnpl:
