@@ -136,6 +136,8 @@ class BacklogList(Resource):
             if flag:
                 msg += "\n```"
                 return {'message': msg}
+            
+            return {'message': 'User {} has no backlog items'.format(user_id)}
         # If the user wants to see only the finished backlog items
         elif status_to_find == "finished":
             if itemsFin:
@@ -148,6 +150,8 @@ class BacklogList(Resource):
                 msg += "\n\n```"
 
                 return {'message': msg}
+            
+            return {'message': 'User {} has no "finished" backlog items'.format(user_id)}
         # If the user wants to see only the unplayed items
         elif status_to_find == "unplayed":
             if itemsUnpl:
@@ -160,6 +164,8 @@ class BacklogList(Resource):
                 msg += "\n\n```"
 
                 return {'message': msg}
+            
+            return {'message': 'User {} has no "unplayed" backlog items'.format(user_id)}
         # If the user wants to see only the playing items
         elif status_to_find == "playing":
             if itemsPlay:
@@ -172,6 +178,8 @@ class BacklogList(Resource):
                 msg += "\n\n```"
 
                 return {'message': msg}
+            
+            return {'message': 'User {} has no "playing" backlog items'.format(user_id)}
 
         return {'message': 'User {} has no backlog items'.format(user_id)}
         
