@@ -35,7 +35,7 @@ class Backlog(Resource):
         item = BacklogItemModel(user_id, **data)
         item.save_to_db()
 
-        return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(data['game'], data['status'], user_id)}
+        return {'message': 'Backlog item {} with status {} was successfully created for user {}'.format(data['game'].title(), data['status'], user_id)}
     
     @jwt_required
     def get(self, user_id):
@@ -53,7 +53,7 @@ class Backlog(Resource):
                 if gameInfo:
                     # To make sure the api call returned results
                     num = 0
-                    while 'game' not in gameinfo[num]:
+                    while 'game' not in gameInfo[num]:
                         num += 1
 
                     return {'message': "{} backlog item:\n```\n{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {:.2f}\n```View More: {}".format(json['user_id'], json['game'], json['status'], gameInfo[num]['game']['summary'], float(gameInfo[num]['game']['rating']), gameInfo[num]['game']['url'])}
