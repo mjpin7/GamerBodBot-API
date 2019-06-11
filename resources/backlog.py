@@ -57,7 +57,7 @@ class Backlog(Resource):
                         num += 1
 
                     # Make sure its valid results
-                    while 'rating' not in gameInfo[num]:
+                    while 'rating' not in gameInfo[num]['game']:
                         num += 1
 
                     return {'message': "{} backlog item:\n```\n{}\n\nStatus: {}\n\nSummary: {}\n\nRating: {:.2f}\n```View More: {}".format(json['user_id'], json['game'], json['status'], gameInfo[num]['game']['summary'], float(gameInfo[num]['game']['rating']), gameInfo[num]['game']['url'])}
