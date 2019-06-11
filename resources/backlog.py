@@ -89,44 +89,80 @@ class Backlog(Resource):
         return {'message': 'Backlog item {} deleted'.format(data['game'])}
 
 class BacklogList(Resource):
-    def get(self, user_id):
+    def get(self, user_id, status_to_find):
+        # Get the list of items for each status, if there are any
         itemsFin = BacklogItemModel.find_by_status(user_id, "finished")
         itemsPlay = BacklogItemModel.find_by_status(user_id, "playing")
         itemsUnpl = BacklogItemModel.find_by_status(user_id, "unplayed")
 
-        if itemsFin or itemsPlay or itemsUnpl:
-            msg = "\t{}'s Backlog:\n```".format(user_id)
-            flag = True
-        
-        if itemsFin:
-            msg += "Finished:\n"
-            for item in itemsFin:
-                json = item.json()
-                msg += '{}\n'.format(json['game'].title())
-            msg += "\n"
-        
+        # If the user wants to see all of their backlog items
+        if status_to_find == "all":
+            
+            # This is to format the output nicely, it goes through each of the status lists individually
+            if itemsFin or itemsPlay or itemsUnpl:
+                msg = "\t{}'s Backlog:\n```".format(user_id)
+                flag = True
+            
+            if itemsFin:
+                msg += "Finished:\n"
+                for item in itemsFin:
+                    json = item.json()
+                    msg += '{}\n'.format(json['game'].title())
+                msg += "\n"
+            
+            if itemsPlay:
+                msg += "Playing:\n"
+                for item in itemsPlay:
+                    json = item.json()
+                    msg += '{}\n'.format(json['game'].title())
+                msg += "\n"
 
-        if itemsPlay:
-            msg += "Playing:\n"
-            for item in itemsPlay:
-                json = item.json()
-                msg += '{}\n'.format(json['game'].title())
-            msg += "\n"
+            if itemsUnpl:
+                msg += "Unplayed:\n"
+                for item in itemsUnpl:
+                    json = item.json()
+                    msg += '{}'.format(json['game'].title())
+                msg += "\n"
+            
+            if flag:
+                msg += "\n```"
+                return {'message': msg}
+        # If the user wants to see only the finished backlog items
+        elif status_to_find == "finished":
+            if itemsFin:
+                msg = "\t{}'s Backlog:\n```".format(user_id)
+                msg += "Finished:\n"
 
-        
+                for item in itemsFin:
+                    json = item.json()
+                    msg += '{}\n'.format(json['game'].title())
+                msg += "\n"
 
-        if itemsPlay:
-            msg += "Unplayed:\n"
-            for item in itemsUnpl:
-                json = item.json()
-                msg += '{}'.format(json['game'].title())
-            msg += "\n"
-        
-        if flag:
-            msg += "\n```"
-            return {'message': msg}
+                return msg
+        # If the user wants to see only the unplayed items
+        elif status_to_find == "unplayed":
+            if itemsUnpl:
+                msg = "\t{}'s Backlog:\n```".format(user_id)
+                msg += "Unplayed:\n"
 
+                for item in itemsUnpl:
+                    json = item.json()
+                    msg += '{}'.format(json['game'].title())
+                msg += "\n"
 
+                return msg
+        # If the user wants to see only the playing items
+        elif status_to_find == "playing":
+            if itemsPlay:
+                msg += "Playing:\n"
+
+                for item in itemsPlay:
+                    json = item.json()
+                    msg += '{}\n'.format(json['game'].title())
+                msg += "\n"
+
+                return msg
+                
         return {'message': 'User {} has no backlog items'.format(user_id)}
         
         
