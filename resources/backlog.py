@@ -64,7 +64,7 @@ class Backlog(Resource):
 
             
 
-        return {'message': 'Game {} was not found in user {}\'s backlog'.format(data['game'], user_id)}
+        return {'message': 'Game {} was not found in user {}\'s backlog'.format(data['game'].title(), user_id)}
     
     @jwt_required
     def put(self, user_id):
@@ -73,15 +73,15 @@ class Backlog(Resource):
         item = BacklogItemModel.find_by_game(user_id, data['game'])
 
         if item is None:
-            return {'message': 'Backlog item {} does not exist. Can not change status'.format(data['game'])}
+            return {'message': 'Backlog item {} does not exist. Can not change status'.format(data['game'].title())}
         
         item.status = data['status']
         item.save_to_db()
 
         if data['status'] == "playing":
-            return {"message": "{} has started playing {}".format(user_id, data['game'])}
+            return {"message": "{} has started playing {}".format(user_id, data['game'].title())}
         elif data['status'] == "finished":
-            return {"message": "{} has completed {}!".format(user_id, data['game'])}
+            return {"message": "{} has completed {}!".format(user_id, data['game'].title())}
         
 
     @jwt_required
@@ -116,21 +116,21 @@ class BacklogList(Resource):
                 msg += "Finished:\n"
                 for item in itemsFin:
                     json = item.json()
-                    msg += '{}\n'.format(json['game'].title())
+                    msg += '{}\n'.format(json['game'])
                 msg += "\n"
             
             if itemsPlay:
                 msg += "Playing:\n"
                 for item in itemsPlay:
                     json = item.json()
-                    msg += '{}\n'.format(json['game'].title())
+                    msg += '{}\n'.format(json['game'])
                 msg += "\n"
 
             if itemsUnpl:
                 msg += "Unplayed:\n"
                 for item in itemsUnpl:
                     json = item.json()
-                    msg += '{}'.format(json['game'].title())
+                    msg += '{}'.format(json['game'])
                 msg += "\n"
             
             if flag:
@@ -144,7 +144,7 @@ class BacklogList(Resource):
 
                 for item in itemsFin:
                     json = item.json()
-                    msg += '{}\n'.format(json['game'].title())
+                    msg += '{}\n'.format(json['game'])
                 msg += "\n\n```"
 
                 return {'message': msg}
@@ -156,7 +156,7 @@ class BacklogList(Resource):
 
                 for item in itemsUnpl:
                     json = item.json()
-                    msg += '{}'.format(json['game'].title())
+                    msg += '{}'.format(json['game'])
                 msg += "\n\n```"
 
                 return {'message': msg}
@@ -168,7 +168,7 @@ class BacklogList(Resource):
 
                 for item in itemsPlay:
                     json = item.json()
-                    msg += '{}\n'.format(json['game'].title())
+                    msg += '{}\n'.format(json['game'])
                 msg += "\n\n```"
 
                 return {'message': msg}
