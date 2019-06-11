@@ -138,7 +138,7 @@ class BacklogList(Resource):
                     msg += '{}\n'.format(json['game'].title())
                 msg += "\n"
 
-                return msg
+               return {'message': msg}
         # If the user wants to see only the unplayed items
         elif status_to_find == "unplayed":
             if itemsUnpl:
@@ -150,7 +150,7 @@ class BacklogList(Resource):
                     msg += '{}'.format(json['game'].title())
                 msg += "\n"
 
-                return msg
+                return {'message': msg}
         # If the user wants to see only the playing items
         elif status_to_find == "playing":
             if itemsPlay:
@@ -162,7 +162,7 @@ class BacklogList(Resource):
                     msg += '{}\n'.format(json['game'].title())
                 msg += "\n"
 
-                return msg
+                return {'message': msg}
 
         return {'message': 'User {} has no backlog items'.format(user_id)}
         
