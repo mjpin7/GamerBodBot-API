@@ -131,7 +131,7 @@ class BacklogList(Resource):
                 msg += "Unplayed:\n"
                 for item in itemsUnpl:
                     json = item.json()
-                    msg += '{}'.format(json['game'])
+                    msg += '{}\n'.format(json['game'])
                 msg += "\n"
             
             if flag:
