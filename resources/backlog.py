@@ -51,7 +51,7 @@ class Backlog(Resource):
                 gameInfo = resp.json()
 
                 # To make sure the api call returned results
-                if not gameInfo[0]['game']['summary']:
+                if 'game' not in gameInfo[0]:
                     num = 1
                 else:
                     num = 0
