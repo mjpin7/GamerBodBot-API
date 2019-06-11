@@ -137,8 +137,8 @@ class BacklogList(Resource):
                     json = item.json()
                     msg += '{}\n'.format(json['game'].title())
                 msg += "\n"
-
-               return {'message': msg}
+                    
+                return {'message': msg}
         # If the user wants to see only the unplayed items
         elif status_to_find == "unplayed":
             if itemsUnpl:
