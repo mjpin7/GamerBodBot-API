@@ -71,7 +71,7 @@ api.add_resource(UserLogin, '/login')
 api.add_resource(TokenRefresher, '/refresh')
 api.add_resource(Meme, '/meme')
 api.add_resource(Backlog, '/backlog/<string:user_id>')
-api.add_resource(BacklogList, '/backloglist/<string:user_id>')
+api.add_resource(BacklogList, '/backloglist/<string:user_id>/<string:status_to_find>')
 
 
 if __name__ == '__main__':
