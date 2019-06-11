@@ -154,6 +154,7 @@ class BacklogList(Resource):
         # If the user wants to see only the playing items
         elif status_to_find == "playing":
             if itemsPlay:
+                msg = "\t{}'s Backlog:\n```".format(user_id)
                 msg += "Playing:\n"
 
                 for item in itemsPlay:
@@ -162,7 +163,7 @@ class BacklogList(Resource):
                 msg += "\n"
 
                 return msg
-                
+
         return {'message': 'User {} has no backlog items'.format(user_id)}
         
         
